@@ -136,10 +136,13 @@ export default function Home() {
       format: 'a4',
     });
 
-    const imgWidth = 210; // A4 width in mm
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pdfWidth = 210; // A4 width in mm
+    const marginX = 15; // 15mm horizontal margins
+    const marginY = 15; // 15mm top margin
+    const contentWidth = pdfWidth - (2 * marginX);
+    const contentHeight = (canvas.height * contentWidth) / canvas.width;
 
-    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    pdf.addImage(imgData, 'PNG', marginX, marginY, contentWidth, contentHeight);
     pdf.save(`invoice-${invoiceNumber || 'draft'}.pdf`);
 
     // Show toast notification
@@ -170,7 +173,7 @@ export default function Home() {
           Download as PDF
         </button>
       </div>
-      <div ref={invoiceRef} style={{ maxWidth: '1000px', margin: '0 auto', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '64px' }}>
+      <div ref={invoiceRef} style={{ maxWidth: '1000px', margin: '0 auto', backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '48px' }}>
 
           {/* Header Section */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', paddingBottom: '32px', borderBottom: '1px solid #e5e7eb', marginBottom: '64px' }}>
